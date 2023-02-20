@@ -1,7 +1,7 @@
 export enum ChartDataFeature {
   HOTDOG = "hotdog",
   BURGER = "burger",
-  SANDWITCH = "sandwitch",
+  SANDWICH = "sandwich",
   KEBAB = "kebab",
   FRIES = "fries",
   DONUT = "donut",
