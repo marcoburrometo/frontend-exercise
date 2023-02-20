@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useCallback } from "react";
 import * as d3 from "d3";
 
 type DataPoint = {
@@ -15,16 +15,14 @@ type Props = {
   data: Data[];
   /** array of colors of each bar group */
   colors?: string[];
+  width?: number;
+  height?: number;
 };
 
-const BarChart = ({ data, colors }: Props) => {
+const BarChart = ({ data, colors, width, height }: Props) => {
   const chartRef = useRef<SVGSVGElement>(null);
 
-  useEffect(() => {
-    if (!chartRef.current) {
-      return;
-    }
-
+  const initChart = useCallback(() => {
     const svg = d3.select(chartRef.current);
     const margin = { top: 20, right: 20, bottom: 30, left: 40 };
     const width = +svg.attr("width")! - margin.left - margin.right;
@@ -85,9 +83,25 @@ const BarChart = ({ data, colors }: Props) => {
       .attr("font-weight", "bold")
       .attr("text-anchor", "start")
       .text("Value");
-  }, [data]);
+  }, [data, colors, width, height]);
 
-  return <svg ref={chartRef} width="960" height="500"></svg>;
+  useEffect(() => {
+    if (!chartRef.current) {
+      return;
+    }
+    // TODO: Make barchart responsive, instead of cleaning it every time
+    chartRef.current.innerHTML = "";
+    initChart();
+  }, [data, height, width]);
+
+  console.log(width);
+
+  return <svg ref={chartRef} width={width} height={height}></svg>;
+};
+
+BarChart.defaultProps = {
+  width: 960,
+  height: 500,
 };
 
 export default BarChart;
