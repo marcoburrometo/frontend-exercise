@@ -3,6 +3,7 @@ import {
   ChartDataFeature,
   CommentThread,
   ChartDataPoint,
+  Comment,
 } from "./data";
 
 // ### `GET /chart/data`

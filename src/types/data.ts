@@ -7,17 +7,25 @@ export enum ChartDataFeature {
   DONUT = "donut",
 }
 
+type ChartDAtaFeatureType =
+  | "hotdog"
+  | "burger"
+  | "sandwich"
+  | "kebab"
+  | "fries"
+  | "donut";
+
 export type Country = "FR" | "GB" | "BE" | "DE" | "ES" | "IT";
 
 export type ChartDataPoint = {
-  feature: ChartDataFeature;
+  feature: ChartDAtaFeatureType;
   country: Country;
 };
 
 export type CommentThread = {
   id: string;
-  comments_count: number;
-  chart_data_point: ChartDataPoint[];
+  commentsCount: number;
+  chartDataPoint: ChartDataPoint;
 };
 
 export type Comment = {
