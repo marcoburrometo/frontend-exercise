@@ -7,7 +7,7 @@ export enum ChartDataFeature {
   DONUT = "donut",
 }
 
-type ChartDAtaFeatureType =
+export type ChartDataFeatureType =
   | "hotdog"
   | "burger"
   | "sandwich"
@@ -18,7 +18,7 @@ type ChartDAtaFeatureType =
 export type Country = "FR" | "GB" | "BE" | "DE" | "ES" | "IT";
 
 export type ChartDataPoint = {
-  feature: ChartDAtaFeatureType;
+  feature: ChartDataFeatureType;
   country: Country;
 };
 

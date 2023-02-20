@@ -80,7 +80,7 @@ const BarChart = ({ data, colors, width, height }: Props) => {
       .join("foreignObject")
       // If there is no counter skip
       .filter((d) => !!d.counter)
-      .attr("x", (d) => x1(d.x)!)
+      .attr("x", (d) => x1(d.x)! + 2)
       .attr("y", height)
       .attr("width", 50)
       .attr("height", 50)
@@ -129,8 +129,6 @@ const BarChart = ({ data, colors, width, height }: Props) => {
     chartRef.current.innerHTML = "";
     initChart();
   }, [data, height, width]);
-
-  console.log(width);
 
   return <svg ref={chartRef} width={width} height={height}></svg>;
 };
