@@ -8,7 +8,7 @@ import {
 import { ChartDataFeatureType } from "./types/data";
 
 function App() {
-  const { isLoading, data } = useGetChartDataQuery();
+  const { isLoading, data, isError } = useGetChartDataQuery();
   const { data: commentsThreads } = useGetChartCommentThreadsQuery();
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -31,6 +31,18 @@ function App() {
       })) || [],
     [data, commentsThreads]
   );
+
+  if (isError) {
+    return (
+      <div className="container mx-auto my-4" ref={containerRef}>
+        <h1 className="text-3xl font-bold mb-4">Food around Europe!</h1>
+        <Card>
+          <div className="h-96 w-full bg-gray-200 animate-pulse" />
+          <div className="text-red-500 mt-5">Error loading data 😤</div>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto my-4" ref={containerRef}>
