@@ -27,6 +27,7 @@ const BarChart = ({ data, colors, width, height }: Props) => {
   const chartRef = useRef<SVGSVGElement>(null);
 
   const initChart = useCallback(() => {
+    if (!data?.length) return;
     const svg = d3.select(chartRef.current);
     const margin = { top: 20, right: 20, bottom: 30, left: 40 };
     const width = +svg.attr("width")! - margin.left - margin.right;

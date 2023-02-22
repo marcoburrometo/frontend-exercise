@@ -16,6 +16,9 @@ export const chartDataApi = createApi({
     getChartData: builder.query<ChartDataResponse, void>({
       query: () => "data",
     }),
+    getSharedChartData: builder.query<ChartDataResponse, string>({
+      query: (token) => `shared/${token}`,
+    }),
     getChartCommentThreads: builder.query<CommentThreadsResponse, void>({
       query: () => "comment_threads",
     }),
@@ -86,6 +89,7 @@ export const chartDataApi = createApi({
 // auto-generated based on the defined endpoints
 export const {
   useGetChartDataQuery,
+  useGetSharedChartDataQuery,
   useGetChartCommentThreadsQuery,
   useGetChartCommentThreadQuery,
   useCreateChartCommentThreadMutation,

@@ -23,7 +23,7 @@ function ShareModal({ onClose }: Props) {
           }}
           type="text"
           className="w-full p-2 border border-gray-300 rounded"
-          value={window.location.origin + "/public/" + data?.token}
+          value={window.location.origin + "/public-chart/" + data?.token}
           readOnly
         />
       </div>
