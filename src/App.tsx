@@ -8,7 +8,6 @@ function App() {
     <BrowserRouter>
       <div className="container mx-auto my-4">
         <h1 className="text-3xl font-bold mb-4">Food around Europe!</h1>
-
         <Card className="relative">
           <Routes>
             <Route path="/public-chart/:token" element={<PublicChart />} />
