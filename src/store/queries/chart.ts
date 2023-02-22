@@ -3,6 +3,7 @@ import {
   ChartDataResponse,
   CommentThreadResponse,
   CommentThreadsResponse,
+  CreateThreadRequest,
   RespondToCommentThreadRequest,
 } from "../../types/remote";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
@@ -23,30 +24,13 @@ export const chartDataApi = createApi({
     }),
     createChartCommentThread: builder.mutation<
       CommentThreadResponse,
-      CommentThreadResponse
+      CreateThreadRequest
     >({
       query: (thread) => ({
         url: "comment_threads",
         method: "POST",
         body: thread,
       }),
-      // Optimistic update -> https://redux-toolkit.js.org/rtk-query/usage/manual-cache-updates#optimistic-updates
-      async onQueryStarted({ id, ...patch }, { dispatch, queryFulfilled }) {
-        const patchResult = dispatch(
-          chartDataApi.util.updateQueryData(
-            "getChartCommentThread",
-            id,
-            (draft: object) => {
-              Object.assign(draft, patch);
-            }
-          )
-        );
-        try {
-          await queryFulfilled;
-        } catch {
-          patchResult.undo();
-        }
-      },
     }),
     respondToChartCommentThread: builder.mutation<
       CommentThreadResponse,
@@ -65,13 +49,31 @@ export const chartDataApi = createApi({
           chartDataApi.util.updateQueryData(
             "getChartCommentThread",
             threadId,
-            (draft: object) => {
+            (draft) => {
+              draft.comments.push({
+                text: patch.body.comment.text,
+                userName: patch.body.comment.user_name,
+              });
               Object.assign(draft, patch);
             }
           )
         );
+
         try {
           await queryFulfilled;
+          // Update the comment count on the comments thread list
+          dispatch(
+            chartDataApi.util.updateQueryData(
+              "getChartCommentThreads",
+              undefined,
+              (draft) => {
+                const thread = draft.find((t) => t.id === threadId);
+                if (thread) {
+                  thread.commentsCount += 1;
+                }
+              }
+            )
+          );
         } catch {
           patchResult.undo();
         }

@@ -4,6 +4,7 @@ import {
   CommentThread,
   ChartDataPoint,
   Comment,
+  CommentRequest,
 } from "./data";
 
 // ### `GET /chart/data`
@@ -27,7 +28,7 @@ export type CommentThreadResponse = CommentThread & {
 // ### `POST /chart/comment_threads`
 // Creates a new comment thread, responds with `CommentThreadResponse`
 export type CreateThreadRequest = {
-  comment: Comment;
+  comment: CommentRequest;
   data_point: ChartDataPoint;
 };
 
@@ -35,7 +36,7 @@ export type CreateThreadRequest = {
 // Posts a new comment to a thread, responds with `CommentThreadResponse`
 
 export type RespondToCommentThreadRequest = {
-  comment: Comment;
+  comment: CommentRequest;
 };
 
 // ### `GET /share`

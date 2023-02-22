@@ -29,6 +29,11 @@ export type CommentThread = {
 };
 
 export type Comment = {
+  userName: string;
+  text: string;
+};
+
+export type CommentRequest = {
   user_name: string;
   text: string;
 };

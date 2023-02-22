@@ -34,11 +34,13 @@ function App() {
               counter: thread?.commentsCount,
               onClick: () => {
                 setFormData({
-                  commentThread: thread!,
-                  chartDataPont: {
-                    feature: k as ChartDataFeatureType,
+                  threadId: thread?.id,
+                  dataPoint: {
                     country: d.country,
+                    feature: k as ChartDataFeatureType,
                   },
+                  title:
+                    d.country + " - " + k + ": " + d[k as ChartDataFeatureType],
                 });
               },
             };
@@ -96,7 +98,7 @@ function App() {
         </div>
       </Card>
       {formData && (
-        <ThreadForm data={formData} onClose={() => setFormData(undefined)} />
+        <ThreadForm {...formData} onClose={() => setFormData(undefined)} />
       )}
     </div>
   );
