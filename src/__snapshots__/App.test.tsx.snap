@@ -6,12 +6,12 @@ exports[`renders the app without errors 1`] = `
     class="container mx-auto my-4"
   >
     <h1
-      class="text-3xl font-bold mb-4"
+      class="mb-4 text-3xl font-bold"
     >
       Food around Europe!
     </h1>
     <div
-      class="bg-white shadow overflow-hidden sm:rounded-lg relative"
+      class="overflow-hidden bg-white shadow sm:rounded-lg relative"
     >
       <div
         class="px-4 py-5 sm:px-6"
@@ -21,13 +21,13 @@ exports[`renders the app without errors 1`] = `
             class="absolute top-0 right-0 mt-4 mr-4"
           >
             <button
-              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              class="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
             >
               Share
             </button>
           </div>
           <h3
-            class="text-xl font-bold mb-4"
+            class="mb-4 text-xl font-bold"
           >
             Chart
           </h3>
@@ -1298,16 +1298,16 @@ exports[`renders the app without errors 1`] = `
               </g>
             </svg>
             <div
-              class="flex flex-wrap mt-8"
+              class="mt-8 flex flex-wrap"
             >
               <div
-                class="flex items-center justify-between p-2 my-2 mr-4 bg-gray-200 rounded-lg shadow-sm"
+                class="my-2 mr-4 flex items-center justify-between rounded-lg bg-gray-200 p-2 shadow-sm"
               >
                 <div
                   class="flex items-center px-2"
                 >
                   <div
-                    class="w-4 h-4 mr-2 rounded-full"
+                    class="mr-2 h-4 w-4 rounded-full"
                     style="background-color: rgb(209, 60, 75);"
                   />
                   <div>
@@ -1316,13 +1316,13 @@ exports[`renders the app without errors 1`] = `
                 </div>
               </div>
               <div
-                class="flex items-center justify-between p-2 my-2 mr-4 bg-gray-200 rounded-lg shadow-sm"
+                class="my-2 mr-4 flex items-center justify-between rounded-lg bg-gray-200 p-2 shadow-sm"
               >
                 <div
                   class="flex items-center px-2"
                 >
                   <div
-                    class="w-4 h-4 mr-2 rounded-full"
+                    class="mr-2 h-4 w-4 rounded-full"
                     style="background-color: rgb(249, 148, 86);"
                   />
                   <div>
@@ -1331,13 +1331,13 @@ exports[`renders the app without errors 1`] = `
                 </div>
               </div>
               <div
-                class="flex items-center justify-between p-2 my-2 mr-4 bg-gray-200 rounded-lg shadow-sm"
+                class="my-2 mr-4 flex items-center justify-between rounded-lg bg-gray-200 p-2 shadow-sm"
               >
                 <div
                   class="flex items-center px-2"
                 >
                   <div
-                    class="w-4 h-4 mr-2 rounded-full"
+                    class="mr-2 h-4 w-4 rounded-full"
                     style="background-color: rgb(254, 229, 150);"
                   />
                   <div>
@@ -1346,13 +1346,13 @@ exports[`renders the app without errors 1`] = `
                 </div>
               </div>
               <div
-                class="flex items-center justify-between p-2 my-2 mr-4 bg-gray-200 rounded-lg shadow-sm"
+                class="my-2 mr-4 flex items-center justify-between rounded-lg bg-gray-200 p-2 shadow-sm"
               >
                 <div
                   class="flex items-center px-2"
                 >
                   <div
-                    class="w-4 h-4 mr-2 rounded-full"
+                    class="mr-2 h-4 w-4 rounded-full"
                     style="background-color: rgb(232, 246, 164);"
                   />
                   <div>
@@ -1361,13 +1361,13 @@ exports[`renders the app without errors 1`] = `
                 </div>
               </div>
               <div
-                class="flex items-center justify-between p-2 my-2 mr-4 bg-gray-200 rounded-lg shadow-sm"
+                class="my-2 mr-4 flex items-center justify-between rounded-lg bg-gray-200 p-2 shadow-sm"
               >
                 <div
                   class="flex items-center px-2"
                 >
                   <div
-                    class="w-4 h-4 mr-2 rounded-full"
+                    class="mr-2 h-4 w-4 rounded-full"
                     style="background-color: rgb(143, 210, 164);"
                   />
                   <div>
@@ -1376,13 +1376,13 @@ exports[`renders the app without errors 1`] = `
                 </div>
               </div>
               <div
-                class="flex items-center justify-between p-2 my-2 mr-4 bg-gray-200 rounded-lg shadow-sm"
+                class="my-2 mr-4 flex items-center justify-between rounded-lg bg-gray-200 p-2 shadow-sm"
               >
                 <div
                   class="flex items-center px-2"
                 >
                   <div
-                    class="w-4 h-4 mr-2 rounded-full"
+                    class="mr-2 h-4 w-4 rounded-full"
                     style="background-color: rgb(66, 136, 181);"
                   />
                   <div>

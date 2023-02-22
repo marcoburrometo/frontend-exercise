@@ -7,9 +7,10 @@ import chartData from './__mocks__/chartData';
 import commentThreads from './__mocks__/commentThreads';
 import commentThread from './__mocks__/commentThread';
 
-beforeAll(() => {
+const prepareMocks = () => {
   // Mock remote data
   fetchMock.mockIf(/http:\/\/localhost\/*/, (req) => {
+    console.log('aaaaaaaaaa', req.url);
     if (req.url.endsWith('/chart/data')) {
       return Promise.resolve({
         body: JSON.stringify(chartData)
@@ -31,9 +32,11 @@ beforeAll(() => {
   });
 
   fetchMock.enableMocks();
-});
+};
 
 test('renders the app without errors', async () => {
+  prepareMocks();
+
   const { getByText, container } = render(<App />);
   expect(getByText('Food around Europe!')).toBeTruthy();
   await waitFor(() => {
