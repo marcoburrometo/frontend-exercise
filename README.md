@@ -11,6 +11,7 @@ The task is to build a frontend that displays the chart and allows users to add 
 - Some basic tests using Jest
 - TailwindCSS ➡️ [https://tailwindcss.com/](https://tailwindcss.com/)
 - d3 for charts ➡️ [https://d3js.org/](https://d3js.org/)
+- Github action for testing
 
 ## Start
 
