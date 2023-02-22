@@ -9,11 +9,13 @@ import {
 
 // ### `GET /chart/data`
 // Returns chart data formatted to be ready-for-consumption.
-export type ChartDataResponse = ({
-  [key in ChartDataFeature]: number;
-} & {
-  country: Country;
-})[];
+export type ChartDataResponse = Array<
+  {
+    [key in ChartDataFeature]: number;
+  } & {
+    country: Country;
+  }
+>;
 
 // ### `GET /chart/comment_threads`
 // Returns a list of comment threads,

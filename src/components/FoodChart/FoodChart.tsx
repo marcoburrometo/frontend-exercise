@@ -1,3 +1,4 @@
+import React from "react";
 import { useMemo, useRef, useState } from "react";
 import { ChartDataFeatureType } from "../../types/data";
 import { ChartDataResponse, CommentThreadsResponse } from "../../types/remote";

@@ -1,4 +1,4 @@
-import { useRef, useEffect, useCallback } from "react";
+import React, { useRef, useEffect, useCallback } from "react";
 import * as d3 from "d3";
 import "./BarChart.css";
 import { COLORS_SET } from "../../utils/colors";
@@ -77,7 +77,6 @@ const BarChart = ({ data, colors, width, height }: Props) => {
     // Append counter if there is one
     g.append("g")
       .selectAll("g")
-      .attr("class", "counters")
       .data(data)
       .join("g")
       .attr("transform", (d) => `translate(${x0(d.label)},0)`)
@@ -86,6 +85,7 @@ const BarChart = ({ data, colors, width, height }: Props) => {
       .join("foreignObject")
       // If there is no counter skip
       .filter((d) => !!d.counter)
+      .attr("class", "counters")
       .attr("x", (d) => x1(d.x)! + 5)
       .attr("y", height)
       .attr("width", 50)

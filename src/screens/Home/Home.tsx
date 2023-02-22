@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import FoodChart from "../../components/FoodChart/FoodChart";
 import ShareModal from "../../components/ShareModal/ShareModal";
@@ -10,8 +11,8 @@ function Home() {
   const [showShareModal, setShowShareModal] = useState(false);
 
   const { isLoading, data, isError } = useGetChartDataQuery();
-  const { data: commentsThreads } = useGetChartCommentThreadsQuery();
 
+  const { data: commentsThreads } = useGetChartCommentThreadsQuery();
   return (
     <div>
       {/* Share button */}

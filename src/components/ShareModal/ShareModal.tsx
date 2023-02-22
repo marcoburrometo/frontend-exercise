@@ -1,3 +1,4 @@
+import React from "react";
 import { useGetShareLinkQuery } from "../../store/queries/share";
 import Modal from "../Modal/Modal";
 
