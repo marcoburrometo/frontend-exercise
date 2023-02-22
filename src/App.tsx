@@ -1,7 +1,10 @@
 import { useMemo, useRef, useState } from "react";
 import BarChart from "./components/BarChart/BarChart";
 import Card from "./components/Card/Card";
-import ThreadForm, { ThreadFormData } from "./components/ThreadForm/ThreadForm";
+import ShareModal from "./components/ShareModal/ShareModal";
+import ThreadModal, {
+  ThreadFormData,
+} from "./components/ThreadModal/ThreadModal";
 import {
   useGetChartCommentThreadsQuery,
   useGetChartDataQuery,
@@ -13,7 +16,7 @@ function App() {
   const { isLoading, data, isError } = useGetChartDataQuery();
   const { data: commentsThreads } = useGetChartCommentThreadsQuery();
   const [formData, setFormData] = useState<ThreadFormData>();
-
+  const [showShareModal, setShowShareModal] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const chartData = useMemo(
@@ -64,7 +67,19 @@ function App() {
   return (
     <div className="container mx-auto my-4" ref={containerRef}>
       <h1 className="text-3xl font-bold mb-4">Food around Europe!</h1>
-      <Card>
+
+      <Card className="relative">
+        {/* Share button */}
+        <div className="absolute top-0 right-0 mt-4 mr-4">
+          <button
+            onClick={() => {
+              setShowShareModal(true);
+            }}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Share
+          </button>
+        </div>
         <h3 className="text-xl font-bold mb-4">Chart</h3>
 
         {isLoading ? (
@@ -98,7 +113,10 @@ function App() {
         </div>
       </Card>
       {formData && (
-        <ThreadForm {...formData} onClose={() => setFormData(undefined)} />
+        <ThreadModal {...formData} onClose={() => setFormData(undefined)} />
+      )}
+      {showShareModal && (
+        <ShareModal onClose={() => setShowShareModal(false)} />
       )}
     </div>
   );
