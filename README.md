@@ -3,145 +3,71 @@
 In this task you're presented with an API backend of chart data, comments and sharing.
 The task is to build a frontend that displays the chart and allows users to add comments and share the chart.
 
-## Running the backend
+## What is included
 
-### Pre-requisites
+- ESLint + Prettier
+- Redux + redux-toolkit ➡️ [https://redux-toolkit.js.org/](https://redux-toolkit.js.org/)
+- React router dom ➡️ [https://reactrouter.com/en/main][https://reactrouter.com/en/main]
+- Some basic tests using Jest
+- TailwindCSS ➡️ [https://tailwindcss.com/](https://tailwindcss.com/)
+- d3 for charts ➡️ [https://d3js.org/](https://d3js.org/)
 
-Install [Docker](https://www.docker.com/get-started/).
+## Start
 
-### Installation
+#### Install packages
 
-Run `docker-compose build` - might take a while for frontend to build.
-
-### Launchnig
-
-Run `docker-compose up` - wait until yo see "frontend | Compiled successfully!" message; loads in around a 2-3 minutes.
-
-Navigate to http://localhost:3000 to view the app.
-
-To launch only the backend - run `docker-compose up backend`
-
-## Project structure
-
-`backend` folder hosts FastAPI backend.
-
-- `test_main.py` has integration tests
-- `services/test_comments_service.py` has unit tests for thes comments service
-- locks are used to prevent race conditions, e.g. multiple comment threads attached to the same chart data point or overwriting the comments
-
-`frontend` folder hosts React/Typescript frontend.
-
-## Domain Model
-
-Bar chart is used for the test task. Countries are on the X axis, Features are on the Y axis.
-
-**Chart Domain**
-
-- `ChartDataPoint` represents single point on the plot
-- `ChartDataFeature` is an enum with all available features
-- `Country` is an enum with all available features
-
-**Comment Domain**
-
-- `CommentThread` represents a single thread attached to chart
-- `Comment` represents an entry within a thread
-
-## Backend API
-
-Backend API runs on http://localhost:8000
-
-### Common backend-exposed type signatures
-
-```typescript
-type ChartDataFeatures =
-  | "hotdog"
-  | "burger"
-  | "sandwitch"
-  | "kebab"
-  | "fries"
-  | "donut";
-
-type Country = "FR" | "GB" | "BE" | "DE" | "ES" | "IT";
-
-type ChartDataPoint = {
-  feature: ChartDataFeature;
-  country: Country;
-};
-
-type CommentThread = {
-  id: string;
-  comments_count: number;
-  chart_data_point: ChartDataPoint[];
-};
-
-type Comment = {
-  user_name: string;
-  text: string;
-};
+```
+npm i
 ```
 
-### `GET /chart/data`
+or
 
-Returns chart data formatted to be ready-for-consumption.
-
-```typescript
-type ChartDataResponse = {
-  country: Country;
-  [key: ChartDataFeature]: number;
-}[];
+```
+yarn
 ```
 
-### `GET /chart/comment_threads`
+#### Run project
 
-Returns a list of comment threads,
-
-```typescript
-type CommentThreadsResponse = CommentThread[];
+```
+npm run start // or yarn start
 ```
 
-### `GET /chart/comment_threads/:thread_id`
+The application will run on `http://localhost:3000/`
 
-Returns a list of comments in a thread
+#### Lint
 
-```typescript
-type CommentThreadResponse = CommentThread & {
-  comments: Comment[];
-};
+ESLint + prettier is included
+
+```
+npm run lint
 ```
 
-### `POST /chart/comment_threads`
+or
 
-Creates a new comment thread, responds with `CommentThreadResponse`
-
-```typescript
-type CreateThreadRequest = {
-  comment: Comment;
-  data_point: ChartDataPoint;
-};
-``;
+```
+yarn lint
 ```
 
-### `POST /chart/comment_threads/:thread_id/respond`
+#### Test
 
-Posts a new comment to a thread, responds with `CommentThreadResponse`
-
-```typescript
-type RespondToCommentThreadRequest = {
-  comment: Comment;
-};
-``;
+```
+npm run test
 ```
 
-### `GET /share`
+or
 
-Returns a shareable link for a chart
-
-```typescript
-type ShareResponse = {
-  token: string;
-};
+```
+yarn test
 ```
 
-### `GET /chart/shared/:share_id`
+### TODOs
 
-Returns chart data by token, responds with `ChartDataResponse`
+- Add more tests
+- Add e2e tests
+- Make barchart responsive, instead of cleaning it every time
+- API url should be in .env file
+- Add some helper functions for API calls
+- Fancier 404 page
+- Lazy load pages
+
+##### Have fun. 🧑‍🚀🚀
