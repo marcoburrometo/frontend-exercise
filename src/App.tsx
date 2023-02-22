@@ -1,6 +1,7 @@
-import { useMemo, useRef } from "react";
-import BarChart from "./components/BarChart";
-import Card from "./components/Card";
+import { useMemo, useRef, useState } from "react";
+import BarChart from "./components/BarChart/BarChart";
+import Card from "./components/Card/Card";
+import ThreadForm, { ThreadFormData } from "./components/ThreadForm/ThreadForm";
 import {
   useGetChartCommentThreadsQuery,
   useGetChartDataQuery,
@@ -10,6 +11,7 @@ import { ChartDataFeatureType } from "./types/data";
 function App() {
   const { isLoading, data, isError } = useGetChartDataQuery();
   const { data: commentsThreads } = useGetChartCommentThreadsQuery();
+  const [formData, setFormData] = useState<ThreadFormData>();
 
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -19,15 +21,27 @@ function App() {
         label: d.country,
         values: Object.keys(d)
           .filter((d) => d !== "country")
-          .map((k) => ({
-            x: k,
-            y: d[k as ChartDataFeatureType],
-            counter: commentsThreads?.find(
+          .map((k) => {
+            const thread = commentsThreads?.find(
               (c) =>
                 c.chartDataPoint.feature === k &&
                 c.chartDataPoint.country === d.country
-            )?.commentsCount,
-          })),
+            );
+            return {
+              x: k,
+              y: d[k as ChartDataFeatureType],
+              counter: thread?.commentsCount,
+              onClick: () => {
+                setFormData({
+                  commentThread: thread!,
+                  chartDataPont: {
+                    feature: k as ChartDataFeatureType,
+                    country: d.country,
+                  },
+                });
+              },
+            };
+          }),
       })) || [],
     [data, commentsThreads]
   );
@@ -58,6 +72,9 @@ function App() {
           />
         )}
       </Card>
+      {formData && (
+        <ThreadForm data={formData} onClose={() => setFormData(undefined)} />
+      )}
     </div>
   );
 }

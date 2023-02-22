@@ -1,10 +1,12 @@
 import { useRef, useEffect, useCallback } from "react";
 import * as d3 from "d3";
+import "./BarChart.css";
 
 type DataPoint = {
   x: string;
   y: number;
   counter?: number;
+  onClick?: () => void;
 };
 
 type Data = {
@@ -46,9 +48,11 @@ const BarChart = ({ data, colors, width, height }: Props) => {
     y.domain([0, d3.max(data, (d) => d3.max(d.values, (d) => d.y))!]).nice();
 
     g.append("g")
+      .attr("class", "bars")
       .selectAll("g")
       .data(data)
       .join("g")
+      .attr("class", "bar-group")
       .attr("transform", (d) => `translate(${x0(d.label)},0)`)
       .selectAll("rect")
       // Also pass the index of the group to the data
@@ -60,6 +64,10 @@ const BarChart = ({ data, colors, width, height }: Props) => {
       //   .attr("height", (d) => height - y(d.y))
       .attr("height", 0)
       .attr("fill", (d) => z(d.x)! as string)
+      .on("click", (ev, d) => {
+        d.onClick && d.onClick();
+      })
+      .attr("class", (d) => (d.onClick ? "bar clickable" : "bar"))
       //  Animate the height from bottom up with a delay
       .transition()
       // add a delay to stagger the animation for each bar from left to right for all groups
@@ -80,7 +88,7 @@ const BarChart = ({ data, colors, width, height }: Props) => {
       .join("foreignObject")
       // If there is no counter skip
       .filter((d) => !!d.counter)
-      .attr("x", (d) => x1(d.x)! + 2)
+      .attr("x", (d) => x1(d.x)! + 5)
       .attr("y", height)
       .attr("width", 50)
       .attr("height", 50)
@@ -96,13 +104,13 @@ const BarChart = ({ data, colors, width, height }: Props) => {
             <span class="ml-1">${d.counter}</span>
         </div>`
       )
-
       .transition()
       // add a delay to stagger the animation for each bar from left to right for all groups
       .delay((d, i) => d.idx * data[d.idx].values.length * 20 + i * 20)
       .duration(300) // set the duration of the animation
       .attr("y", (d) => y(d.y) - 25); // animate the y attribute
 
+    // Axis
     g.append("g")
       .attr("class", "axis")
       .attr("transform", `translate(0,${height})`)
