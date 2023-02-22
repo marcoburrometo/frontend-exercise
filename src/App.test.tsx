@@ -10,7 +10,6 @@ import commentThread from './__mocks__/commentThread';
 const prepareMocks = () => {
   // Mock remote data
   fetchMock.mockIf(/http:\/\/localhost\/*/, (req) => {
-    console.log('aaaaaaaaaa', req.url);
     if (req.url.endsWith('/chart/data')) {
       return Promise.resolve({
         body: JSON.stringify(chartData)
