@@ -1,4 +1,4 @@
-# Calliper frontend take-home task
+# Frontend take-home task
 
 In this task you're presented with an API backend of chart data, comments and sharing.
 The task is to build a frontend that displays the chart and allows users to add comments and share the chart.
