@@ -116,7 +116,13 @@ function ThreadForm({
           ></textarea>
           <button
             onClick={addComment}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+            disabled={isLoading || !comment?.length}
+            className={classNames(
+              "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4",
+              {
+                "opacity-50 cursor-not-allowed": isLoading || !comment?.length,
+              }
+            )}
           >
             Add comment {isLoading && "Adding..."}
           </button>
