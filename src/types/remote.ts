@@ -4,8 +4,8 @@ import {
   CommentThread,
   ChartDataPoint,
   Comment,
-  CommentRequest,
-} from "./data";
+  CommentRequest
+} from './data';
 
 // ### `GET /chart/data`
 // Returns chart data formatted to be ready-for-consumption.
@@ -54,4 +54,4 @@ export type ShareResponse = {
 /**
  * TODO: env var
  */
-export const API_BASE_URL = "http://localhost:8000";
+export const API_BASE_URL = 'http://localhost:8000';

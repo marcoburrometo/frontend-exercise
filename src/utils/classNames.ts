@@ -4,18 +4,16 @@
 /* For example:
 /* _<button className={classNames('btn', 'btn-primary', { 'btn-loading': isLoading })} />_
 */
-export default function classNames(
-  ...args: (string | { [k: string]: boolean | unknown })[]
-) {
+export default function classNames(...args: (string | { [k: string]: boolean | unknown })[]) {
   return args
     .filter(Boolean)
     .map((arg) =>
-      typeof arg === "string"
+      typeof arg === 'string'
         ? arg
         : Object.entries(arg)
             .filter(([, value]) => value)
             .map(([key]) => key)
-            .join(" ")
+            .join(' ')
     )
-    .join(" ");
+    .join(' ');
 }

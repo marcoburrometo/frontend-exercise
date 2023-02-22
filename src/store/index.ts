@@ -1,28 +1,28 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit';
 import {
   useSelector as rawUseSelector,
   TypedUseSelectorHook,
-  useDispatch as useDispatchRedux,
-} from "react-redux";
-import { chartDataApi } from "./queries/chart";
-import { shareApi } from "./queries/share";
+  useDispatch as useDispatchRedux
+} from 'react-redux';
+import { chartDataApi } from './queries/chart';
+import { shareApi } from './queries/share';
 
 // Middleware: Redux Persist Persisted Reducer
 
 export const store = configureStore({
   reducer: {
     [chartDataApi.reducerPath]: chartDataApi.reducer,
-    [shareApi.reducerPath]: shareApi.reducer,
+    [shareApi.reducerPath]: shareApi.reducer
   },
   middleware: (getDefaultMiddleware) => {
     const middlewares = getDefaultMiddleware({
-      serializableCheck: false,
+      serializableCheck: false
     })
       .concat(chartDataApi.middleware)
       .concat(shareApi.middleware);
 
     return middlewares;
-  },
+  }
 });
 
 export type RootState = ReturnType<typeof store.getState>;

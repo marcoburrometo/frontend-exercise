@@ -1,7 +1,7 @@
-import React, { useRef, useEffect, useCallback } from "react";
-import * as d3 from "d3";
-import "./BarChart.css";
-import { COLORS_SET } from "../../utils/colors";
+import React, { useRef, useEffect, useCallback } from 'react';
+import * as d3 from 'd3';
+import './BarChart.css';
+import { COLORS_SET } from '../../utils/colors';
 
 type DataPoint = {
   x: string;
@@ -30,11 +30,9 @@ const BarChart = ({ data, colors, width, height }: Props) => {
     if (!data?.length) return;
     const svg = d3.select(chartRef.current);
     const margin = { top: 20, right: 20, bottom: 30, left: 40 };
-    const width = +svg.attr("width")! - margin.left - margin.right;
-    const height = +svg.attr("height")! - margin.top - margin.bottom;
-    const g = svg
-      .append("g")
-      .attr("transform", `translate(${margin.left},${margin.top})`);
+    const width = +svg.attr('width')! - margin.left - margin.right;
+    const height = +svg.attr('height')! - margin.top - margin.bottom;
+    const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
 
     const x0 = d3.scaleBand().rangeRound([0, width]).paddingInner(0.1);
     const x1 = d3.scaleBand().padding(0.05);
@@ -45,53 +43,53 @@ const BarChart = ({ data, colors, width, height }: Props) => {
     x1.domain(data[0].values.map((d) => d.x)).rangeRound([0, x0.bandwidth()]);
     y.domain([0, d3.max(data, (d) => d3.max(d.values, (d) => d.y))!]).nice();
 
-    g.append("g")
-      .attr("class", "bars")
-      .selectAll("g")
+    g.append('g')
+      .attr('class', 'bars')
+      .selectAll('g')
       .data(data)
-      .join("g")
-      .attr("class", "bar-group")
-      .attr("transform", (d) => `translate(${x0(d.label)},0)`)
-      .selectAll("rect")
+      .join('g')
+      .attr('class', 'bar-group')
+      .attr('transform', (d) => `translate(${x0(d.label)},0)`)
+      .selectAll('rect')
       // Also pass the index of the group to the data
       .data((d, i) => d.values.map((e) => ({ ...e, idx: i })))
-      .join("rect")
-      .attr("x", (d) => x1(d.x)!)
-      .attr("y", height)
-      .attr("width", x1.bandwidth())
+      .join('rect')
+      .attr('x', (d) => x1(d.x)!)
+      .attr('y', height)
+      .attr('width', x1.bandwidth())
       //   .attr("height", (d) => height - y(d.y))
-      .attr("height", 0)
-      .attr("fill", (d) => z(d.x)! as string)
-      .on("click", (ev, d) => {
+      .attr('height', 0)
+      .attr('fill', (d) => z(d.x)! as string)
+      .on('click', (ev, d) => {
         d.onClick && d.onClick();
       })
-      .attr("class", (d) => (d.onClick ? "bar clickable" : "bar"))
+      .attr('class', (d) => (d.onClick ? 'bar clickable' : 'bar'))
       //  Animate the height from bottom up with a delay
       .transition()
       // add a delay to stagger the animation for each bar from left to right for all groups
       .delay((d, i) => d.idx * data[d.idx].values.length * 20 + i * 20)
       .duration(300) // set the duration of the animation
-      .attr("y", (d) => y(d.y)) // animate the y attribute
-      .attr("height", (d) => height - y(d.y)); // animate the height attribute
+      .attr('y', (d) => y(d.y)) // animate the y attribute
+      .attr('height', (d) => height - y(d.y)); // animate the height attribute
 
     // Append counter if there is one
-    g.append("g")
-      .selectAll("g")
+    g.append('g')
+      .selectAll('g')
       .data(data)
-      .join("g")
-      .attr("transform", (d) => `translate(${x0(d.label)},0)`)
-      .selectAll("foreignObject")
+      .join('g')
+      .attr('transform', (d) => `translate(${x0(d.label)},0)`)
+      .selectAll('foreignObject')
       .data((d, i) => d.values.map((e) => ({ ...e, idx: i })))
-      .join("foreignObject")
+      .join('foreignObject')
       // If there is no counter skip
       .filter((d) => !!d.counter)
-      .attr("class", "counters")
-      .attr("x", (d) => x1(d.x)! + 5)
-      .attr("y", height)
-      .attr("width", 50)
-      .attr("height", 50)
-      .attr("text-anchor", "middle")
-      .attr("font-size", "0.8rem")
+      .attr('class', 'counters')
+      .attr('x', (d) => x1(d.x)! + 5)
+      .attr('y', height)
+      .attr('width', 50)
+      .attr('height', 50)
+      .attr('text-anchor', 'middle')
+      .attr('font-size', '0.8rem')
       .html(
         (d) =>
           // Tailwind icon for comments
@@ -106,25 +104,25 @@ const BarChart = ({ data, colors, width, height }: Props) => {
       // add a delay to stagger the animation for each bar from left to right for all groups
       .delay((d, i) => d.idx * data[d.idx].values.length * 20 + i * 20)
       .duration(300) // set the duration of the animation
-      .attr("y", (d) => y(d.y) - 25); // animate the y attribute
+      .attr('y', (d) => y(d.y) - 25); // animate the y attribute
 
     // Axis
-    g.append("g")
-      .attr("class", "axis")
-      .attr("transform", `translate(0,${height})`)
+    g.append('g')
+      .attr('class', 'axis')
+      .attr('transform', `translate(0,${height})`)
       .call(d3.axisBottom(x0));
 
-    g.append("g")
-      .attr("class", "axis")
-      .call(d3.axisLeft(y).ticks(null, "s"))
-      .append("text")
-      .attr("x", 2)
-      .attr("y", y(y.ticks().pop()!)! + 0.5)
-      .attr("dy", "0.32em")
-      .attr("fill", "#000")
-      .attr("font-weight", "bold")
-      .attr("text-anchor", "start")
-      .text("Value");
+    g.append('g')
+      .attr('class', 'axis')
+      .call(d3.axisLeft(y).ticks(null, 's'))
+      .append('text')
+      .attr('x', 2)
+      .attr('y', y(y.ticks().pop()!)! + 0.5)
+      .attr('dy', '0.32em')
+      .attr('fill', '#000')
+      .attr('font-weight', 'bold')
+      .attr('text-anchor', 'start')
+      .text('Value');
   }, [data, colors, width, height]);
 
   useEffect(() => {
@@ -132,7 +130,7 @@ const BarChart = ({ data, colors, width, height }: Props) => {
       return;
     }
     // TODO: Make barchart responsive, instead of cleaning it every time
-    chartRef.current.innerHTML = "";
+    chartRef.current.innerHTML = '';
     initChart();
   }, [data, height, width]);
 
@@ -141,7 +139,7 @@ const BarChart = ({ data, colors, width, height }: Props) => {
 
 BarChart.defaultProps = {
   width: 960,
-  height: 500,
+  height: 500
 };
 
 export default BarChart;

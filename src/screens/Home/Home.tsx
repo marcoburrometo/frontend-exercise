@@ -1,11 +1,8 @@
-import React from "react";
-import { useState } from "react";
-import FoodChart from "../../components/FoodChart/FoodChart";
-import ShareModal from "../../components/ShareModal/ShareModal";
-import {
-  useGetChartCommentThreadsQuery,
-  useGetChartDataQuery,
-} from "../../store/queries/chart";
+import React from 'react';
+import { useState } from 'react';
+import FoodChart from '../../components/FoodChart/FoodChart';
+import ShareModal from '../../components/ShareModal/ShareModal';
+import { useGetChartCommentThreadsQuery, useGetChartDataQuery } from '../../store/queries/chart';
 
 function Home() {
   const [showShareModal, setShowShareModal] = useState(false);
@@ -21,21 +18,18 @@ function Home() {
           onClick={() => {
             setShowShareModal(true);
           }}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
+          className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700">
           Share
         </button>
       </div>
-      <h3 className="text-xl font-bold mb-4">Chart</h3>
+      <h3 className="mb-4 text-xl font-bold">Chart</h3>
       <FoodChart
         data={data}
         commentsThreads={commentsThreads}
         isError={isError}
         isLoading={isLoading}
       />
-      {showShareModal && (
-        <ShareModal onClose={() => setShowShareModal(false)} />
-      )}
+      {showShareModal && <ShareModal onClose={() => setShowShareModal(false)} />}
     </div>
   );
 }
