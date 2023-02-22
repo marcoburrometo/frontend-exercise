@@ -1,13 +1,19 @@
 import React from "react";
+import classNames from "../../utils/classNames";
 
 type Props = {
   children: React.ReactNode;
+  className?: string;
 };
 
-function Card({ children }: Props) {
-  // Tailwind card with shadow
+function Card({ children, className }: Props) {
   return (
-    <div className="bg-white shadow overflow-hidden sm:rounded-lg">
+    <div
+      className={classNames(
+        "bg-white shadow overflow-hidden sm:rounded-lg",
+        className || ""
+      )}
+    >
       <div className="px-4 py-5 sm:px-6">{children}</div>
     </div>
   );

@@ -7,6 +7,7 @@ import {
   useGetChartDataQuery,
 } from "./store/queries/chart";
 import { ChartDataFeatureType } from "./types/data";
+import { COLORS_SET } from "./utils/colors";
 
 function App() {
   const { isLoading, data, isError } = useGetChartDataQuery();
@@ -62,6 +63,8 @@ function App() {
     <div className="container mx-auto my-4" ref={containerRef}>
       <h1 className="text-3xl font-bold mb-4">Food around Europe!</h1>
       <Card>
+        <h3 className="text-xl font-bold mb-4">Chart</h3>
+
         {isLoading ? (
           <div className="h-96 w-full bg-gray-200 animate-pulse" />
         ) : (
@@ -71,6 +74,26 @@ function App() {
             data={chartData}
           />
         )}
+      </Card>
+      {/* Legend */}
+      <Card className="mt-8">
+        <h3 className="text-xl font-bold mb-4">Legend</h3>
+        <div className="flex flex-wrap">
+          {chartData[0]?.values.map((d, i) => (
+            <div
+              key={d.x}
+              className="flex items-center justify-between p-2 my-2 mr-4 bg-gray-200 rounded-lg shadow-sm"
+            >
+              <div className="flex items-center px-2">
+                <div
+                  className="w-4 h-4 mr-2 rounded-full"
+                  style={{ backgroundColor: COLORS_SET[i] }}
+                />
+                <div>{d.x}</div>
+              </div>
+            </div>
+          ))}
+        </div>
       </Card>
       {formData && (
         <ThreadForm data={formData} onClose={() => setFormData(undefined)} />

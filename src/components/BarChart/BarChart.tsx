@@ -1,6 +1,7 @@
 import { useRef, useEffect, useCallback } from "react";
 import * as d3 from "d3";
 import "./BarChart.css";
+import { COLORS_SET } from "../../utils/colors";
 
 type DataPoint = {
   x: string;
@@ -37,11 +38,7 @@ const BarChart = ({ data, colors, width, height }: Props) => {
     const x0 = d3.scaleBand().rangeRound([0, width]).paddingInner(0.1);
     const x1 = d3.scaleBand().padding(0.05);
     const y = d3.scaleLinear().rangeRound([height, 0]);
-    const z = d3.scaleOrdinal().range(
-      colors ||
-        // As many colors as there are data points
-        d3.quantize((t) => d3.interpolateSpectral(t * 0.8 + 0.1), data.length)
-    );
+    const z = d3.scaleOrdinal().range(colors || COLORS_SET);
 
     x0.domain(data.map((d) => d.label));
     x1.domain(data[0].values.map((d) => d.x)).rangeRound([0, x0.bandwidth()]);
